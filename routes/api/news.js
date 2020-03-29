@@ -1,5 +1,5 @@
 const router = require('express').Router(),
-      controller = require('../../../controllers/news'),
+      controller = require('../../controllers/news'),
       auth = require('../../auth');
 
 // GET /api/news/
