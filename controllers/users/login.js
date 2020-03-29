@@ -7,7 +7,7 @@ module.exports.post_login = (req, res, next) =>{
   if(!user.email){
     return res.status(422).json({
       errors: {
-        errId: 10101,
+        errId: 101001,
         errMsg: 'email is required'
       }
     });
@@ -16,7 +16,7 @@ module.exports.post_login = (req, res, next) =>{
   if(!user.password){
     return res.status(422).json({
       errors: {
-        errId: 10102,
+        errId: 101002,
         errMsg: 'password is required'
       }
     });
@@ -32,6 +32,6 @@ module.exports.post_login = (req, res, next) =>{
       return res.json({user: user.toAuthJSON()});
     };
 
-    return res.status(400).json({errors: {errId: 10103, errMsg: 'Unknown user'}});
+    return res.status(400).json({errors: {errId: 101003, errMsg: 'Unknown user'}});
   })(req, res, next);
 };

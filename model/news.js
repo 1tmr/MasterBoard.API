@@ -4,11 +4,8 @@ const model = require('mongoose').model;
 var NewsSchema = new Schema({
   title: String,
   content: String,
-  created: {type: Date, default: Date.now()}
+  author: [{type: Schema.Types.ObjectId, ref: 'Users'}],
+  created: {type: Date, default: Date.now}
 });
 
-var News = model('News', NewsSchema);
-
-var topNews = new News({title: "top News 1", content: "bla bla bla bla bla"});
-
-topNews.save();
+module.exports = model('News', NewsSchema);

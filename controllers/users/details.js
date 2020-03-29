@@ -6,7 +6,7 @@ module.exports.get_data = (req, res, next) =>{
  var user = Users.findById(id)
    .then((user) => {
      if(!user){
-       return res.status(400).json({errors: {errId: 10201, errMsg: "user not found"}});
+       return res.status(400).json({errors: {errId: 102001, errMsg: "user not found"}});
      }
      return res.json({
        user: {
@@ -20,16 +20,16 @@ module.exports.get_data = (req, res, next) =>{
 module.exports.get_dataByUID = (req, res, next) =>{
   const {params: {uid}} = req;
 
-  var user = Users.find({uid: uid})
+  var user = Users.findOne({uid: uid})
     .then((user) => {
       if(!user){
-        return res.status(400).json({errors: {errId: 10201, errMsg: "user not found"}});
+        return res.status(400).json({errors: {errId: 102001, errMsg: "user not found"}});
       }
       return res.json({
         user: {
-          email: user[0].email,
-          name: user[0].name,
-          uid: user[0].uid
+          email: user.email,
+          name: user.name,
+          uid: user.uid
         }});
     });
 }
