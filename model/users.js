@@ -1,4 +1,5 @@
 const mongoose = require('mongoose'),
+      AutoIncrement = require('mongoose-sequence')(mongoose),
       crypto = require('crypto'),
       jwt = require('jsonwebtoken'),
       env = (process.env.NODE_ENV || 'development'),
@@ -7,17 +8,24 @@ const mongoose = require('mongoose'),
 
 const UsersSchema = new Schema({
   email: {type: String, required: true, unique: true},
+  name: String,
   hash: String,
   salt: String
 });
+
+UsersSchema.plugin(AutoIncrement, {inc_field: 'uid'});
 
 UsersSchema.methods.setPassword = function(password){
   this.salt = crypto.randomBytes(16).toString('hex');
   this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
 };
 
+UsersSchema.methods.setName = function(name){
+  this.name = name || this.email.split('@')[0];
+};
+
 UsersSchema.methods.validatePassword = function(password) {
-  const hash = crypto.pkbf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
+  const hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
   return this.hash === hash;
 };
 
