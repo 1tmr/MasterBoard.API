@@ -1,6 +1,6 @@
 const router = require('express').Router(),
       controller = require('../../controllers/news'),
-      auth = require('../../auth');
+      auth = require('../auth');
 
 // GET /api/news/
 router.get('/', auth.optional, controller.get_news);

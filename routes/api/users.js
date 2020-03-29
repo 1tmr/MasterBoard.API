@@ -1,6 +1,6 @@
 const router = require('express').Router(),
-      controller = require('../../../controllers/users'),
-      auth = require('../../auth');
+      controller = require('../../controllers/users'),
+      auth = require('../auth');
 
 // POST /api/users/
 router.post('/', auth.optional, controller.get_index);
