@@ -1,15 +1,11 @@
 const router = require('express').Router(),
-      mongoose = require('mongoose'),
-      passport = require('passport'),
-      Users = mongoose.model('Users'),
+      controller = require('../../../controllers/users'),
       auth = require('../../auth');
 
 //GET /api/users/data
-router.get('/', auth.required, (req, res, next) =>{
-  const {params: {id}} = req;
-  var user = Users.find({id});
+router.get('/', auth.required, controller.get_data);
 
-  return res;
-});
+//GET /api/users/data/{uid}
+router.get('/:uid', auth.required, controller.get_dataByUID);
 
 module.exports = router;
